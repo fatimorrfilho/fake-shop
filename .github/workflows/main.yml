@@ -46,5 +46,11 @@ jobs:
 
       - name: Configurar o Kubectl
         run: aws eks update-kubeconfig --name aula-eks
+
       - name: Deploy dos Manifestos no Kubernetes
-        run: echo "Executando o comando kubectl apply"
+        uses: Azure/k8s-deplot@v5
+        with:
+          manifests: |
+            ./k8s/deployment.yaml
+          images: |
+            fatimorrfilho/fake-shop:v${{ github.run_number }}
